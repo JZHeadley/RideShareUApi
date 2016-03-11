@@ -8,22 +8,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
-
-    private final int age;
-    private final double salary;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    @Column(name = "name")
-    private String name;
 
-    public User(int id, String name, int age, double salary) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.salary = salary;
-    }
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
 
     public int getId() {
         return id;
@@ -33,19 +27,19 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    @Override
-    public String toString() {
-        return "User [" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ']';
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

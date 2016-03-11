@@ -12,28 +12,30 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-
-    @Column(name = "name")
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Column(name = "numSeats")
+    private int numSeats;
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getNumSeats() {
+        return numSeats;
+    }
+
+    public void setNumSeats(int numSeats) {
+        this.numSeats = numSeats;
     }
 
     @Override
     public String toString() {
         return "Vehicle [" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", numSeats=" + numSeats +
                 ']';
     }
 }
