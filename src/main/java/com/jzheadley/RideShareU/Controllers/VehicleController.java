@@ -4,9 +4,11 @@ import com.jzheadley.RideShareU.models.Vehicle;
 import com.jzheadley.RideShareU.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -35,5 +37,13 @@ public class VehicleController {
         return vehicleRepository.findOne(id);
     }
 
-
+    // Create Trip
+    @RequestMapping(value = "/vehicle/create/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createVehicle(@RequestBody Vehicle vehicle, UriComponentsBuilder uriComponentsBuilder) {
+        System.out.println("Creating Seat " + vehicle.toString() + " ");
+        vehicleRepository.save(vehicle);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponentsBuilder.path("/vehicle/{id}").buildAndExpand(vehicle.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
 }

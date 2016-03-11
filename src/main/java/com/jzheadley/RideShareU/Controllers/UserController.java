@@ -4,9 +4,11 @@ import com.jzheadley.RideShareU.models.User;
 import com.jzheadley.RideShareU.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -35,5 +37,13 @@ public class UserController {
         return userRepository.findOne(id);
     }
 
-
+    // Create User
+    @RequestMapping(value = "/user/create/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder uriComponentsBuilder) {
+        System.out.println("Creating Seat " + user.toString() + " ");
+        userRepository.save(user);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponentsBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
 }
