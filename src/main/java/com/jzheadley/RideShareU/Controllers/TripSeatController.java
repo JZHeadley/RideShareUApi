@@ -46,4 +46,19 @@ public class TripSeatController {
         headers.setLocation(uriComponentsBuilder.path("/tripSeat/{id}").buildAndExpand(tripSeat.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
+
+    // UpdateTripSeat
+
+    // DeleteTripSeat
+    @RequestMapping(value = "/tripseat/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteTripSeatById(@PathVariable int id) {
+        TripSeat tripSeat = tripSeatRepository.findOne(id);
+        HttpHeaders headers = new HttpHeaders();
+        if (tripSeat == null) {
+            return new ResponseEntity<Void>(headers, HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("Deleting tripSeat " + tripSeat.toString() + " ");
+        tripSeatRepository.delete(id);
+        return new ResponseEntity<Void>(headers, HttpStatus.OK);
+    }
 }

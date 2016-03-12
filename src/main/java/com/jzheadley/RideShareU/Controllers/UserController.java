@@ -46,4 +46,19 @@ public class UserController {
         headers.setLocation(uriComponentsBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
+
+    // UpdateUser
+
+    // DeleteUser
+    @RequestMapping(value = "/user/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteUserById(@PathVariable int id) {
+        User user = userRepository.findOne(id);
+        HttpHeaders headers = new HttpHeaders();
+        if (user == null) {
+            return new ResponseEntity<Void>(headers, HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("Deleting user " + user.toString() + " ");
+        userRepository.delete(id);
+        return new ResponseEntity<Void>(headers, HttpStatus.OK);
+    }
 }

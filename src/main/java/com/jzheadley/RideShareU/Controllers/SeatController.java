@@ -47,4 +47,19 @@ public class SeatController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    // UpdateSeat
+
+    // DeleteSeat
+    @RequestMapping(value = "/seat/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteSeatById(@PathVariable int id) {
+        Seat seat = seatRepository.findOne(id);
+        HttpHeaders headers = new HttpHeaders();
+        if (seat == null) {
+            return new ResponseEntity<Void>(headers, HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("Deleting seat " + seat.toString() + " ");
+        seatRepository.delete(id);
+        return new ResponseEntity<Void>(headers, HttpStatus.OK);
+    }
+
 }

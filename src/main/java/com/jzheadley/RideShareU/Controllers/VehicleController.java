@@ -46,4 +46,19 @@ public class VehicleController {
         headers.setLocation(uriComponentsBuilder.path("/vehicle/{id}").buildAndExpand(vehicle.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
+
+    // UpdateVehicle
+
+    // DeleteVehicle
+    @RequestMapping(value = "/vehicle/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteVehicleById(@PathVariable int id) {
+        Vehicle vehicle = vehicleRepository.findOne(id);
+        HttpHeaders headers = new HttpHeaders();
+        if (vehicle == null) {
+            return new ResponseEntity<Void>(headers, HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("Deleting vehicle " + vehicle.toString() + " ");
+        vehicleRepository.delete(id);
+        return new ResponseEntity<Void>(headers, HttpStatus.OK);
+    }
 }
