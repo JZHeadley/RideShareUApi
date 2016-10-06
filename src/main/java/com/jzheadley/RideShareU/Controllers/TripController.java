@@ -20,20 +20,27 @@ public class TripController {
     TripRepository tripRepository;
 
     // Retrieve All Trips
+
+    /**
+     * maps the url http://<server address>/trip/ to this method.
+     *
+     * @return ResponseEntity<List<Trip>>> This sets the response of the server to be an entity containing the list of trips
+     * In other words, this creates the json you see.  The backend framework automatically
+     * converts the list of object into a json array of the trip objects as json objects.
+     */
     @RequestMapping(value = "/trip/", method = RequestMethod.GET)
     public ResponseEntity<List<Trip>> listAllTrips() {
-        List<Trip> users = (List<Trip>) tripRepository.findAll();
-        if (users.isEmpty()) {
-            return new ResponseEntity<List<Trip>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        List<Trip> trips = (List<Trip>) tripRepository.findAll();
+        if (trips.isEmpty()) {
+            return new ResponseEntity<List<Trip>>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<Trip>>(users, HttpStatus.OK);
+        return new ResponseEntity<List<Trip>>(trips, HttpStatus.OK);
     }
 
     // Get Trip by id
     @RequestMapping(value = "/trip/{id}", method = RequestMethod.GET)
-    public
     @ResponseBody
-    Trip listTripById(@PathVariable int id) {
+    public Trip listTripById(@PathVariable int id) {
         return tripRepository.findOne(id);
     }
 
@@ -46,6 +53,7 @@ public class TripController {
         headers.setLocation(uriComponentsBuilder.path("/trip/{id}").buildAndExpand(trip.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
+
     // UpdateTrip
 
     // DeleteTrip

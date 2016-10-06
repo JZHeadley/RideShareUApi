@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Table(name = "Trip")
 public class Trip {
 
+    /**
+     * This is the primary key of the database.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -37,6 +40,10 @@ public class Trip {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getVehicleId() {
@@ -97,7 +104,7 @@ public class Trip {
 
     @Override
     public String toString() {
-        return "Trip [" +
+        return "Trip{" +
                 "id=" + id +
                 ", vehicleId=" + vehicleId +
                 ", driverId=" + driverId +
@@ -106,6 +113,8 @@ public class Trip {
                 ", source='" + source + '\'' +
                 ", destination='" + destination + '\'' +
                 ", value=" + value +
-                ']';
+                '}';
     }
 }
+
+
